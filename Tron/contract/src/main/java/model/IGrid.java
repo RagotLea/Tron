@@ -8,4 +8,5 @@ public interface IGrid extends Observer {
 	public void createGrid();
 	public WallEnum getWall();
 	public void setWall(WallEnum wall);
+	public IDimension getDimension();
 }

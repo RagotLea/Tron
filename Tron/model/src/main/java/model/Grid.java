@@ -9,6 +9,7 @@ private int x = 600;
 private int y = 400;
 private WallEnum wall;
 Wall wallee = new Wall();
+private IDimension dimension;
 
 public Grid () {
 	this.createGrid();
@@ -47,6 +48,12 @@ public void createGrid() {
 public void update(Observable arg0, Object arg1) {
 	// TODO Auto-generated method stub
 	
+}
+
+@Override
+public IDimension getDimension() {
+	// TODO Auto-generated method stub
+	return this.dimension;
 }
 
 

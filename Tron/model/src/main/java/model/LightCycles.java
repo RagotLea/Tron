@@ -94,12 +94,15 @@ public void setColor(Color color) {
 	
 }
 
+public ITronModel getTronModel() {
+	return this.tronModel;
+}
 
 @Override
 public void setTronModel(ITronModel tronModel) {
 	this.tronModel = tronModel;
-	this.getWidth();
-	this.getHeight();
+	this.getPosition().setMaxX(this.getTronModel().getGrid().getDimension().getWidth());
+	this.getPosition().setMaxY(this.getTronModel().getGrid().getDimension().getHeight());
 	
 }
 
