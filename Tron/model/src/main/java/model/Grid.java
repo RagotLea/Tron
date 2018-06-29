@@ -1,4 +1,6 @@
 package model;
+import java.util.Observable;
+
 import model.IGrid;
 import model.WallEnum;
 
@@ -7,6 +9,10 @@ private int x = 600;
 private int y = 400;
 private WallEnum wall;
 Wall wallee = new Wall();
+
+public Grid () {
+	this.createGrid();
+}
 
 @Override
 public int getX() {
@@ -34,6 +40,12 @@ public void createGrid() {
 			wallee.createSpace();
 		}
 	}
+	
+}
+
+@Override
+public void update(Observable arg0, Object arg1) {
+	// TODO Auto-generated method stub
 	
 }
 

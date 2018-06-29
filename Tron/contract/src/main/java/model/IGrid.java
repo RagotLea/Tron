@@ -1,6 +1,8 @@
 package model;
 
-public interface IGrid {
+import java.util.Observer;
+
+public interface IGrid extends Observer {
 	public int getX();
 	public int getY();
 	public void createGrid();
