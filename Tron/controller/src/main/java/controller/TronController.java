@@ -1,17 +1,17 @@
 package controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import model.Direction;
 import model.ILightCycles;
 import model.ITronModel;
+import view.IViewSystem;
 
 public class TronController implements IOrderPerformer{
 	private static int						TIME_SLEEP	= 30;
 	private final ITronModel	tronModel;
 	private boolean								isGameOver	= false;
-	private IViewSystem						viewSystem;
+	private IViewSystem	viewSystem;
 
 	public TronController(final ITronModel tronModel) {
 		this.tronModel = tronModel;
@@ -46,7 +46,7 @@ public class TronController implements IOrderPerformer{
 	}
 
 	private boolean isWeaponOnMobile(final ILightCycles lightCycles1, final ILightCycles lightCycles2) {
-		if (((lightCycles2.getPosition().getX / lightCycles2.getWidth()) >= (lightCycles1.getPosition().getX() / lightCycles2.getWidth()))
+		if (((lightCycles2.getPosition().getX() / lightCycles2.getWidth()) >= (lightCycles1.getPosition().getX() / lightCycles2.getWidth()))
 				&& ((lightCycles2.getPosition().getX() / lightCycles2.getWidth()) <= ((lightCycles1.getPosition().getX() + lightCycles1.getWidth()) / lightCycles1.getWidth()))) {
 			if (((lightCycles2.getPosition().getY() / lightCycles2.getHeight()) >= (lightCycles1.getPosition().getY() / lightCycles2.getHeight()))
 					&& ((lightCycles2.getPosition().getY() / lightCycles2.getHeight()) <= ((lightCycles1.getPosition().getY() + lightCycles1.getHeight()) / lightCycles1.getHeight()))) {
@@ -65,12 +65,12 @@ public class TronController implements IOrderPerformer{
 				target.add(mobile);
 			}
 		}
-		for (final ILightCycles mobile : target) {
+	/*for (final ILightCycles mobile : target) {
 			isTargetHit = isTargetHit || mobile.hit();
 		}
 		if (isTargetHit) {
 			this.isGameOver = true;
-		}
+		}*/
 	}
 
 	public void play() {
@@ -104,5 +104,4 @@ public class TronController implements IOrderPerformer{
 	public void setViewSystem(final IViewSystem viewSystem) {
 		this.viewSystem = viewSystem;
 	}
-}
 }

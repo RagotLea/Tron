@@ -8,7 +8,7 @@ private int height;
 private Direction direction;
 private Color color;
 private ITronModel tronModel;
-private Position position;
+private IPosition position;
 
 public LightCycles(int width, int height, Color color) {
 	this.setWidth(width);
@@ -124,8 +124,7 @@ public boolean isWeapon() {
 
 
 @Override
-public Object getPosition() {
-	// TODO Auto-generated method stub
+public IPosition getPosition() {
 	return this.position;
 }
 

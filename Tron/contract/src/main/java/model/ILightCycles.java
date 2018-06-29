@@ -15,5 +15,5 @@ public interface ILightCycles {
 	public boolean isPlayer(int player);
 	public void setDirection(Direction direction);
 	public boolean isWeapon();
-	public Object getPosition();
+	public IPosition getPosition();
 }
