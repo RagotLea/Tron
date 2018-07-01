@@ -1,6 +1,8 @@
 package model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface ITronModel {
 	public IGrid getGrid();
@@ -9,5 +11,4 @@ public interface ITronModel {
 	public ArrayList<ILightCycles> getLightCycles();
 	public ILightCycles getMobileByPlayer(final int player);
 	public void setMobilesHavesMoved() ;
-	
 }
