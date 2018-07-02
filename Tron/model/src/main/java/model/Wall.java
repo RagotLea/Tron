@@ -3,6 +3,7 @@ package model;
 public class Wall {
 	public WallEnum wall;
 	
+	
 	public void createWall() {
 		switch(wall){
 		case SPACE : 

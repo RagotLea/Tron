@@ -8,22 +8,27 @@ import model.ILightCycles;
 
 public class TronGraphicsBuilder {
 	private final IGrid grid;
+	final Graphics graphics;
 
-	public TronGraphicsBuilder(final IGrid grid) {
+	public TronGraphicsBuilder(final IGrid grid, final Graphics graphics) {
 		this.grid = grid;
+		this.graphics = graphics;
 	}
 
 	//private void clearGraphics(final Graphics graphics) {
 	//	graphics.clearRect(0, 0, this.grid.getX() * TronFrame.ZOOM, this.grid.getY() * TronFrame.ZOOM);
 	//}
 
-	//private void drawAllJavaCell(final Graphics graphics) {
-		//for (final JavaCell javaCell : this.grid.getCopyOfJavaCells()) {
-		//	this.drawJavaCell(graphics, javaCell);
-		//}
-	//}
+	public void drawSpace() {
+		graphics.fillRect(grid.getX(), grid.getY(), 1, 1);
+	}
+	private void drawAllLightCycles(final Graphics graphics) {
+		for (final ILightCycles lightCycles : this.grid.getCopyOfLightCycles()) {
+			this.drawLightCycles(graphics, lightCycles);
+		}
+	}
 
-	private void drawJavaCell(final Graphics graphics, final ILightCycles lightCycles) {
+	private void drawLightCycles(final Graphics graphics, final ILightCycles lightCycles) {
 		graphics.setColor(lightCycles.getColor());
 		graphics.fillRect(lightCycles.getWidth() * TronFrame.ZOOM, lightCycles.getHeight() * TronFrame.ZOOM, TronFrame.ZOOM, TronFrame.ZOOM);
 
@@ -31,6 +36,6 @@ public class TronGraphicsBuilder {
 
 	public void applyModelToGraphic(final Graphics graphics) {
 		//this.clearGraphics(graphics);
-		//this.drawAllJavaCell(graphics);
+		this.drawAllLightCycles(graphics);
 	}
 }

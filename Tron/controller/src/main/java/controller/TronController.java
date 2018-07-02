@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 
 import model.Direction;
+import model.IGrid;
 import model.ILightCycles;
 import model.ITronModel;
 import view.IViewSystem;
@@ -12,6 +13,7 @@ public class TronController implements IOrderPerformer{
 	private final ITronModel	tronModel;
 	private boolean								isGameOver	= false;
 	private IViewSystem	viewSystem;
+	private IGrid grid;
 
 	public TronController(final ITronModel tronModel) {
 		this.tronModel = tronModel;
@@ -20,7 +22,7 @@ public class TronController implements IOrderPerformer{
 	@Override
 	public void orderPerform(final IUserOrder userOrder) {
 		if (userOrder != null) {
-			final ILightCycles lightCycles = this.tronModel.getMobileByPlayer(userOrder.getPlayer());
+			final ILightCycles lightCycles = this.grid.getMobileByPlayer(userOrder.getPlayer());
 			if (lightCycles != null) {
 				Direction direction;
 				switch (userOrder.getOrder()) {
@@ -37,7 +39,7 @@ public class TronController implements IOrderPerformer{
 						direction = Direction.LEFT;
 						break;
 					default:
-						direction = this.tronModel.getMobileByPlayer(userOrder.getPlayer()).getDirection();
+						direction = this.grid.getMobileByPlayer(userOrder.getPlayer()).getDirection();
 						break;
 				}
 				lightCycles.setDirection(direction);
@@ -60,7 +62,7 @@ public class TronController implements IOrderPerformer{
 		final ArrayList<ILightCycles> target = new ArrayList<ILightCycles>();
 		boolean isTargetHit = false;
 
-		for (final ILightCycles mobile : this.tronModel.getLightCycles()) {
+		for (final ILightCycles mobile : this.grid.getLightCycles()) {
 			if (this.isWeaponOnMobile(mobile, weapon)) {
 				target.add(mobile);
 			}
@@ -88,7 +90,7 @@ public class TronController implements IOrderPerformer{
 			}
 
 			final ArrayList<ILightCycles> initialMobiles = new ArrayList<ILightCycles>();
-			for (final ILightCycles mobile : this.tronModel.getLightCycles()) {
+			for (final ILightCycles mobile : this.grid.getLightCycles()) {
 				initialMobiles.add(mobile);
 			}
 			for (final ILightCycles mobile : initialMobiles) {
@@ -97,7 +99,7 @@ public class TronController implements IOrderPerformer{
 					this.manageCollision(mobile);
 				}
 			}
-			this.tronModel.setMobilesHavesMoved();
+			this.grid.setMobilesHavesMoved();
 		}
 	}
 

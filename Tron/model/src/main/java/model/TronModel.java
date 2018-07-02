@@ -11,6 +11,7 @@ public class TronModel extends Observable implements ITronModel{
 	
 	public TronModel() {
 		this.lightCycles = new ArrayList<>();
+		this.buildGrid();
 	}
 	
 	@Override
@@ -23,36 +24,12 @@ public class TronModel extends Observable implements ITronModel{
 	public void buildGrid() {
 		// TODO Auto-generated method stub
 		this.grid = new Grid();
+		grid.createGrid();
 	}
 
-	@Override
-	public void addLightCycles(ILightCycles lightCycles) {
-		this.lightCycles.add(lightCycles);
-		lightCycles.setTronModel(this);
-		
-	}
+	
+	
 
-	@Override
-	public ArrayList<ILightCycles> getLightCycles() {
-		// TODO Auto-generated method stub
-		return this.lightCycles;
-	}
-
-	@Override
-	public ILightCycles getMobileByPlayer(int player) {
-		for (final ILightCycles lightCycles : this.lightCycles) {
-			if (lightCycles.isPlayer(player)) {
-				return lightCycles;
-			}
-		}
-		return null;
-	}
-
-	@Override
-	public void setMobilesHavesMoved() {
-		this.setChanged();
-		this.notifyObservers();
-		
-	}
+	
 
 }

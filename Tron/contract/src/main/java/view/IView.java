@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.Graphics;
+
 /**
  * <h1>The Interface IView.</h1>
  *
@@ -15,4 +17,5 @@ public interface IView {
      *            the message
      */
     void displayMessage(String message);
+    public void drawAllLightCycles(final Graphics graphics);
 }
