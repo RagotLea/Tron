@@ -1,7 +1,10 @@
 package model;
 
+import view.ITronGraphicsBuilder;
+
 public class Wall {
 	public WallEnum wall;
+	ITronGraphicsBuilder builder;
 	
 	
 	public void createWall() {
@@ -16,7 +19,7 @@ public class Wall {
 	}
 	
 	public void createSpace() {
-		System.out.println('_');
+		
 	}
 	
 	public void createRedWall() {

@@ -13,6 +13,6 @@ public interface IGrid extends Observer {
 	public ArrayList<ILightCycles> getLightCycles();
 	public ILightCycles getMobileByPlayer(int player);
 	void setMobilesHavesMoved();
-	public ILightCycles getCopyOfLightCycles();
+	public ArrayList<ILightCycles> getCopyOfLightCycles();
 	public void addLightCycles(ILightCycles lightCycles);
 }

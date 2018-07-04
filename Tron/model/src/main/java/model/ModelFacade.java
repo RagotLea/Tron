@@ -3,6 +3,7 @@ package model;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 import model.dao.ExampleDAO;
 
@@ -12,13 +13,16 @@ import model.dao.ExampleDAO;
  * @author Jean-Aymeric DIET jadiet@cesi.fr
  * @version 1.0
  */
-public final class ModelFacade implements ITronModel {
+public final class ModelFacade implements ITronModel  {
  TronModel model;
+ Grid grid;
     /**
      * Instantiates a new model facade.
      */
     public ModelFacade() {
         super();
+       grid = new Grid();
+       model = new TronModel();
     }
     
     
@@ -52,7 +56,6 @@ public final class ModelFacade implements ITronModel {
 
 
 
-	@Override
 	public IGrid getGrid() {
 		// TODO Auto-generated method stub
 		return model.getGrid();
@@ -60,18 +63,16 @@ public final class ModelFacade implements ITronModel {
 
 
 
-	@Override
 	public ArrayList<ILightCycles> getLightCycles() {
 		// TODO Auto-generated method stub
-		return model.getLightCycles();
+		return grid.getLightCycles();
 	}
 
 
 
-	@Override
 	public ILightCycles getMobileByPlayer(int player) {
 		// TODO Auto-generated method stub
-		return model.getMobileByPlayer(player);
+		return grid.getMobileByPlayer(player);
 	}
 
 
@@ -85,19 +86,23 @@ public final class ModelFacade implements ITronModel {
 
 
 
-	@Override
 	public void addLightCycles(ILightCycles lightCycles) {
-		model.addLightCycles(lightCycles);
+		grid.addLightCycles(lightCycles);
 		// TODO Auto-generated method stub
 		
 	}
 
 
 
-	@Override
 	public void setMobilesHavesMoved() {
-		model.setMobilesHavesMoved();// TODO Auto-generated method stub
+		grid.setMobilesHavesMoved();// TODO Auto-generated method stub
 		
+	}
+
+
+
+	public ArrayList<ILightCycles> getCopyOfLightCycles() {
+		return grid.getCopyOfLightCycles();
 	}
 
 }

@@ -33,7 +33,7 @@ public class ControllerFacade implements IController {
      * @param model
      *            the model
      */
-    public ControllerFacade(final IView view, final ITronModel model, final IGrid grid) {
+    public ControllerFacade(final IView view, final ITronModel model, IGrid grid) {
         super();
         this.view = view;
         this.model = model;

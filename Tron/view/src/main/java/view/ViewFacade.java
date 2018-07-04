@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import controller.IOrderPerformer;
 import model.IGrid;
 import model.ILightCycles;
+import model.ITronModel;
 
 /**
  * <h1>The Class ViewFacade provides a facade of the View component.</h1>
@@ -17,6 +18,7 @@ import model.ILightCycles;
  */
 public class ViewFacade implements IView, IEventPerformer {
 	IGrid grid;
+	ITronModel tron;
 	IOrderPerformer order;
 TronGraphicsBuilder graphicBuilder; 
 TronFrame frame;
@@ -27,7 +29,7 @@ Graphics graphics;
      */
     public ViewFacade() {
         super();
-        this.frame = new TronFrame("test", grid);
+        this.frame = new TronFrame("test", tron);
         graphicBuilder = new TronGraphicsBuilder(grid, graphics);
         event = new EventPerformer(order);
     }

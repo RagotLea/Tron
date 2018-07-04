@@ -1,9 +1,10 @@
 package model;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Observable;
-
 import model.IGrid;
 import model.WallEnum;
+import view.ITronGraphicsBuilder;
 
 public class Grid extends Observable implements IGrid {
 private int x ;
@@ -12,12 +13,17 @@ private WallEnum wall;
 Wall wallee = new Wall();
 private IDimension dimension;
 ArrayList<ILightCycles> lightCycles;
+LightCycles lightcycles;
+Color color;
 ITronModel tron;
+ITronGraphicsBuilder builder;
 
 public Grid () {
 	this.setX(600);
 	this.setY(600);
 	this.createGrid();
+	this.lightcycles = new LightCycles(x, y, color.MAGENTA );
+	this.addLightCycles(lightcycles);
 }
 
 public void setX(int x) {
@@ -25,7 +31,6 @@ public void setX(int x) {
 }
 @Override
 public int getX() {
-	System.out.println(this.x);
 	// TODO Auto-generated method stub
 	return this.x;
 }
@@ -34,7 +39,6 @@ public void setY(int y) {
 }
 @Override
 public int getY() {
-	System.out.println(this.y);
 	// TODO Auto-generated method stub
 	return this.y;
 }
@@ -49,9 +53,9 @@ public void setWall(WallEnum wall) {
 
 @Override
 public void createGrid() {
-	for (int i= 0; i<= this.getX(); i++) {
-		for (int j = 2; j <= this.getY(); j++) {
-			wallee.createSpace();
+	for (int i= 0; i<= 600; i++) {
+		for (int j = 2; j <= 600; j++) {
+			  this.setWall(wall.SPACE);
 		}
 	}
 	
@@ -94,14 +98,18 @@ public void setMobilesHavesMoved() {
 @Override
 public void addLightCycles(ILightCycles lightCycles) {
 	this.lightCycles.add(lightCycles);
-	lightCycles.setTronModel(tron);
+	//lightCycles.setTronModel(lightCycles);
 	
 }
 
 @Override
-public ILightCycles getCopyOfLightCycles() {
-	// TODO Auto-generated method stub
-	return null;
+public ArrayList<ILightCycles> getCopyOfLightCycles() {
+	final ArrayList<ILightCycles> copyOflightcycles = new ArrayList<ILightCycles>();
+
+	for (final ILightCycles lightcycles : this.getLightCycles()) {
+		copyOflightcycles.add(lightcycles);
+	}
+	return copyOflightcycles;
 }
 
 }

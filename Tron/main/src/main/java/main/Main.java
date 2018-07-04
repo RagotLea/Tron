@@ -8,6 +8,8 @@ import model.Grid;
 import model.IGrid;
 import model.ILightCycles;
 import model.ModelFacade;
+import model.WallEnum;
+import view.ITronGraphicsBuilder;
 import view.ViewFacade;
 
 /**
@@ -24,14 +26,14 @@ public abstract class Main {
      *            the arguments
      */
     public static void main(final String[] args) {
-       final ControllerFacade controller = new ControllerFacade(new ViewFacade(), new ModelFacade(), new Grid());
+     final ControllerFacade controller = new ControllerFacade(new ViewFacade(), new ModelFacade(), new Grid());
 
         try {
             controller.start();
         } catch (final SQLException exception) {
             exception.printStackTrace();
         }
-
+    		
     }
 
     	

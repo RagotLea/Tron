@@ -2,7 +2,7 @@ package model;
 
 import java.awt.Color;
 
-public class LightCycles implements ILightCycles {
+public class LightCycles extends Grid implements ILightCycles {
 private int width;
 private int height;
 private Direction direction;
