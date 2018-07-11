@@ -26,13 +26,33 @@ public abstract class Main {
      *            the arguments
      */
     public static void main(final String[] args) {
-     final ControllerFacade controller = new ControllerFacade(new ViewFacade(), new ModelFacade(), new Grid());
+           /* final ITronModel tronModel = new TronModel();
+            final IDimension dimension;
+            final IGrid grid = new Grid();
+            final ILightCycle lightCycle = new LightCycle(, , );
+            final ITronController tronController;
+            final IViewSystem viewSystem = new ViewSystem();
+            final IPosition positon = new position();
 
-        try {
+            grid.createGrid(); //dimension(400, 600);
+            grid.addLightCycle(new LightCycle(0, 10, color.blue));
+            grid.addLightCycle(new LightCycle(1, new position(10, 590), "red"));
+            TronController.setViewSystem(IViewSystem viewSystem);
+            TronController.play();
+        }  try {
+                controller.start();
+            } catch (final SQLException exception) {
+                exception.printStackTrace();
+            }
+        }*/
+    	
+     final ControllerFacade controller = new ControllerFacade(new ViewFacade(), new ModelFacade());
+
+      /*  try {
             controller.start();
         } catch (final SQLException exception) {
             exception.printStackTrace();
-        }
+        }*/
     		
     }
 

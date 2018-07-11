@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JOptionPane;
 
+import controller.IController;
 import controller.IOrderPerformer;
 import model.IGrid;
 import model.ILightCycles;
@@ -24,6 +25,7 @@ TronGraphicsBuilder graphicBuilder;
 TronFrame frame;
 EventPerformer event;
 Graphics graphics;
+IController controller;
     /**
      * Instantiates a new view facade.
      */
@@ -32,6 +34,12 @@ Graphics graphics;
         this.frame = new TronFrame("test", tron);
         graphicBuilder = new TronGraphicsBuilder(grid, graphics);
         event = new EventPerformer(order);
+        this.drawAllLightCycles(graphics);
+        }
+    
+    @Override
+    public void setGrid(IGrid grid) {
+    	this.grid = grid;
     }
 
     /*
@@ -50,6 +58,12 @@ Graphics graphics;
 	@Override
 	public void eventPerform(KeyEvent keyCode) {
 		event.eventPerform(keyCode);
+		
+	}
+
+	@Override
+	public void setOrderPerformer(IOrderPerformer orderPerformer) {
+		this.order = orderPerformer;
 		
 	}
 }

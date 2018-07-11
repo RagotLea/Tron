@@ -2,7 +2,7 @@ package model;
 
 import java.awt.Color;
 
-public class LightCycles extends Grid implements ILightCycles {
+public class LightCycles implements ILightCycles {
 private int width;
 private int height;
 private Direction direction;
@@ -14,6 +14,7 @@ public LightCycles(int width, int height, Color color) {
 	this.setWidth(width);
 	this.setHeight(height);
 	this.setColor(color);
+
 }
 
 
@@ -46,6 +47,16 @@ public void moveRight() {
 
 public void moveLeft() {
 	this.setWidth(getWidth()-1);
+}
+
+@Override
+public void turnRight() {
+	this.setDirection(Direction.values()[(getDirection().ordinal() + 1) %4]);
+}
+
+@Override
+public void turnLeft() {
+	this.setDirection(Direction.values()[(getDirection().ordinal() + 3) %4]);
 }
 
 @Override

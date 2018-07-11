@@ -1,15 +1,10 @@
 package controller;
 
-import java.awt.Graphics;
 import java.sql.SQLException;
-import java.util.List;
-
-import model.Example;
-import model.IGrid;
-import model.ILightCycles;
-import model.ITronModel;
-import view.IEventPerformer;
+import model.Imodel;
 import view.IView;
+import java.util.Observer;
+import java.util.Observable;
 
 /**
  * <h1>The Class ControllerFacade provides a facade of the Controller component.</h1>
@@ -17,14 +12,11 @@ import view.IView;
  * @author Jean-Aymeric DIET jadiet@cesi.fr
  * @version 1.0
  */
-public class ControllerFacade implements IController {
+public class ControllerFacade implements IController, Observer {
 
     /** The view. */
-    private final IView  view;
 
     /** The model. */
-    private final ITronModel model;
-    private final IGrid grid;
     /**
      * Instantiates a new controller facade.
      *
@@ -33,14 +25,20 @@ public class ControllerFacade implements IController {
      * @param model
      *            the model
      */
-    public ControllerFacade(final IView view, final ITronModel model, IGrid grid) {
+	private IOrderPerformer order;
+    public ControllerFacade(final IView view, final Imodel modelFacade) {
         super();
-        this.view = view;
-        this.model = model;
-        this.grid = grid;
+        view.setGrid(modelFacade.getGrid());
+        view.setOrderPerformer(this.getOrderPerformer());
+        //model.addObserver(view);
     }
 
-    /**
+    private IOrderPerformer getOrderPerformer() {
+		// TODO Auto-generated method stub
+		return this.order;
+	}
+
+	/**
      * Start.
      *
      * @throws SQLException
@@ -59,17 +57,23 @@ public class ControllerFacade implements IController {
             message.append('\n');
         }
         this.getView().displayMessage(message.toString());*/
-    	 startView();
-    	  startModel();
+    	// startView();
+    	 // startModel();
         
     }
 
-    public void startView() {
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+   /* public void startView() {
     	 Graphics graphics = null;
 		this.getView().drawAllLightCycles(graphics);
     }
     
-    public void startModel() {
+  /*  public void startModel() {
     	this.getGrid().addLightCycles(null);
         this.getModel().buildGrid();
         this.getModel().getGrid();
@@ -82,7 +86,7 @@ public class ControllerFacade implements IController {
      *
      * @return the view
      */
-    public IView getView() {
+   /* public IView getView() {
         return this.view;
     }
 
@@ -94,7 +98,7 @@ public class ControllerFacade implements IController {
      *
      * @return the model
      */
-    public ITronModel getModel() {
+   /* public ITronModel getModel() {
         return this.model;
-    }
+    }*/
 }

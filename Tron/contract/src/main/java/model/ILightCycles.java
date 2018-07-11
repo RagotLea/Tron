@@ -16,4 +16,6 @@ public interface ILightCycles {
 	public void setDirection(Direction direction);
 	public boolean isWeapon();
 	public IPosition getPosition();
+	void turnLeft();
+	void turnRight();
 }

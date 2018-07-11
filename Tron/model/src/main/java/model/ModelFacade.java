@@ -1,11 +1,13 @@
 package model;
 
+import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
 import model.dao.ExampleDAO;
+import view.IView;
 
 /**
  * <h1>The Class ModelFacade provides a facade of the Model component.</h1>
@@ -13,16 +15,23 @@ import model.dao.ExampleDAO;
  * @author Jean-Aymeric DIET jadiet@cesi.fr
  * @version 1.0
  */
-public final class ModelFacade implements ITronModel  {
+public final class ModelFacade extends Observable implements Imodel {
  TronModel model;
  Grid grid;
+ LightCycles lightcycles;
+ Color color;
     /**
      * Instantiates a new model facade.
      */
     public ModelFacade() {
         super();
-       grid = new Grid();
+        this.grid = new Grid();
+        grid.createGrid();
+       /*grid = new Grid();
        model = new TronModel();
+       grid.createGrid();
+       grid.addLightCycles(new LightCycles(1, 10, color.blue));
+       grid.addLightCycles(new LightCycles(10,1, color.red));*/
     }
     
     
@@ -56,14 +65,38 @@ public final class ModelFacade implements ITronModel  {
 
 
 
-	public IGrid getGrid() {
+	public Grid getGrid() {
 		// TODO Auto-generated method stub
 		return model.getGrid();
 	}
 
 
 
-	public ArrayList<ILightCycles> getLightCycles() {
+	@Override
+	public Example getExampleById(int id) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public Example getExampleByName(String name) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public List<Example> getAllExamples() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	/*public ArrayList<ILightCycles> getLightCycles() {
 		// TODO Auto-generated method stub
 		return grid.getLightCycles();
 	}
@@ -103,6 +136,6 @@ public final class ModelFacade implements ITronModel  {
 
 	public ArrayList<ILightCycles> getCopyOfLightCycles() {
 		return grid.getCopyOfLightCycles();
-	}
+	}*/
 
 }

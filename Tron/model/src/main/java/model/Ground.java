@@ -4,12 +4,11 @@ import java.awt.Color;
 
 import view.ITronGraphicsBuilder;
 
-public class Wall {
-	public WallEnum wall;
-	ITronGraphicsBuilder builder;
+public class Ground {
 
-
-	public Wall(Color color, int x, int y) {
+	public Ground() {
 		// TODO Auto-generated constructor stub
 	}
+
+	
 }

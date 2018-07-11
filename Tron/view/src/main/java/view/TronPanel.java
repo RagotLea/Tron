@@ -1,13 +1,16 @@
 package view;
 
 import java.awt.Graphics;
+import java.awt.image.ImageObserver;
 import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JPanel;
 
-public class TronPanel extends JPanel {
+public class TronPanel extends JPanel implements Observer {
 	private static final long								serialVersionUID	= 3987064896591403626L;
 	private final TronGraphicsBuilder	graphicsBuilder;
+	
 	
 	public TronPanel(final TronGraphicsBuilder graphicsBuilder) {
 		this.graphicsBuilder = graphicsBuilder;
@@ -17,7 +20,6 @@ public class TronPanel extends JPanel {
 		this.repaint();
 	}
 
-	@Override
 	protected void paintComponent(final Graphics graphics) {
 		this.graphicsBuilder.applyModelToGraphic(graphics);
 	}

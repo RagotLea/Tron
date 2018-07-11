@@ -6,9 +6,11 @@ import controller.IOrderPerformer;
 import controller.IUserOrder;
 import controller.Order;
 import controller.UserOrder;
+import model.ILightCycles;
 
 public class EventPerformer implements IEventPerformer {
 	private final IOrderPerformer orderPerformer;
+	ILightCycles lightCycles;
 
 	public EventPerformer(final IOrderPerformer orderPerformer) {
 		this.orderPerformer = orderPerformer;
@@ -25,20 +27,20 @@ public class EventPerformer implements IEventPerformer {
 	private UserOrder keyCodeToUserOrder(final int keyCode) {
 		UserOrder userOrder;
 		switch (keyCode) {
-			case KeyEvent.VK_UP:
+		/*	case KeyEvent.VK_UP:
 				userOrder = new UserOrder(0, Order.UP);
-				break;
+				break;*/
 			case KeyEvent.VK_RIGHT:
 				userOrder = new UserOrder(0, Order.RIGHT);
 				break;
-			case KeyEvent.VK_DOWN:
+			/*case KeyEvent.VK_DOWN:
 				userOrder = new UserOrder(0, Order.DOWN);
-				break;
+				break;*/
 			case KeyEvent.VK_LEFT:
 				userOrder = new UserOrder(0, Order.LEFT);
 				break;
 
-			case KeyEvent.VK_Z:
+			/*case KeyEvent.VK_Z:
 				userOrder = new UserOrder(1, Order.UP);
 				break;
 			case KeyEvent.VK_D:
@@ -49,7 +51,7 @@ public class EventPerformer implements IEventPerformer {
 				break;
 			case KeyEvent.VK_Q:
 				userOrder = new UserOrder(1, Order.LEFT);
-				break;
+				break;*/
 			default:
 				userOrder = null;
 		}

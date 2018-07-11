@@ -2,6 +2,9 @@ package view;
 
 import java.awt.Graphics;
 
+import controller.IOrderPerformer;
+import model.IGrid;
+
 /**
  * <h1>The Interface IView.</h1>
  *
@@ -18,4 +21,6 @@ public interface IView {
      */
     void displayMessage(String message);
     public void drawAllLightCycles(final Graphics graphics);
+    public void setGrid(IGrid iGrid);
+	void setOrderPerformer(IOrderPerformer orderPerformer);
 }

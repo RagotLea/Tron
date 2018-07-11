@@ -10,20 +10,21 @@ public class Grid extends Observable implements IGrid {
 private int x ;
 private int y ;
 private WallEnum wall;
-Wall wallee = new Wall();
+Wall wallee ;
 private IDimension dimension;
 ArrayList<ILightCycles> lightCycles;
-LightCycles lightcycles;
+LightCycles lightcycles1;
+LightCycles lightcycles2;
 Color color;
 ITronModel tron;
 ITronGraphicsBuilder builder;
+Ground ground;
 
 public Grid () {
 	this.setX(600);
-	this.setY(600);
-	this.createGrid();
-	this.lightcycles = new LightCycles(x, y, color.MAGENTA );
-	this.addLightCycles(lightcycles);
+	this.setY(400);
+	this.lightcycles1 = new LightCycles(10, 100, color.blue );
+	this.lightcycles2 = new LightCycles(100, 10, color.red );
 }
 
 public void setX(int x) {
@@ -52,14 +53,46 @@ public void setWall(WallEnum wall) {
 }
 
 @Override
-public void createGrid() {
+public WallEnum createGrid() {
 	for (int i= 0; i<= 600; i++) {
-		for (int j = 2; j <= 600; j++) {
-			  this.setWall(wall.SPACE);
+		for (int j = 2; j <= 400; j++) {
+			  if ((i== 0) || (i == 600 - 1)) {
+				  System.out.println("ook1");
+				  this.setWall(wall.WALL);
+				  wallee = new Wall(color.white, i, j);
+				  System.out.println("ook2");
+			  }
+			  if ((j == 0)||(j == 400 - 1)) {
+				  this.setWall(wall.WALL);
+				  wallee = new Wall(color.white, i, j); 
+				  System.out.println("ook3");
+			  }
+			
+			
+			  if ((lightcycles1.getWidth() == i) && (lightcycles1.getHeight() == j)) {
+				  this.setWall(wall.BLUE_WALL);
+				  wallee = new Wall(color.blue,i,j);
+				  System.out.println("ook4");
+			  }
+			  
+			  if ((lightcycles2.getWidth() == i) && lightcycles2.getHeight() == j) {
+				  this.setWall(wall.RED_WALL);
+				  wallee = new Wall(color.red,i,j);
+				  System.out.println("ook5");
+			  }
+			  this.setWall(wall.GROUND);
+			  ground = new Ground();
+			  System.out.println("ook6");
+			  
 		}
+		
 	}
+	System.out.println(wall);
+	return this.getWall();
 	
 }
+
+
 
 @Override
 public void update(Observable arg0, Object arg1) {

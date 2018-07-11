@@ -34,5 +34,6 @@ public interface Imodel {
      *             the SQL exception
      */
     List<Example> getAllExamples() throws SQLException;
+    public IGrid getGrid();
 	
 }

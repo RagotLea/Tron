@@ -26,17 +26,19 @@ public class TronController implements IOrderPerformer{
 			if (lightCycles != null) {
 				Direction direction;
 				switch (userOrder.getOrder()) {
-					case UP:
+					/*case UP:
 						direction = Direction.UP;
-						break;
+						break;*/
 					case RIGHT:
-						direction = Direction.RIGHT;
+						lightCycles.turnRight();
+						direction = lightCycles.getDirection();
 						break;
-					case DOWN:
+					/*case DOWN:
 						direction = Direction.DOWN;
-						break;
+						break;*/
 					case LEFT:
-						direction = Direction.LEFT;
+						lightCycles.turnLeft();
+						direction = lightCycles.getDirection();
 						break;
 					default:
 						direction = this.grid.getMobileByPlayer(userOrder.getPlayer()).getDirection();

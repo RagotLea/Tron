@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
+import view.IView;
+
 public class TronModel extends Observable implements ITronModel{
 	private Grid grid;
 	private final ArrayList<ILightCycles> lightCycles;
@@ -15,7 +17,7 @@ public class TronModel extends Observable implements ITronModel{
 	}
 	
 	@Override
-	public IGrid getGrid() {
+	public Grid getGrid() {
 		// TODO Auto-generated method stub
 		return this.grid;
 	}

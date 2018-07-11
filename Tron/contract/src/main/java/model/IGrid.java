@@ -6,7 +6,7 @@ import java.util.Observer;
 public interface IGrid extends Observer {
 	public int getX();
 	public int getY();
-	public void createGrid();
+	public WallEnum createGrid();
 	public WallEnum getWall();
 	public void setWall(WallEnum wall);
 	public IDimension getDimension();
