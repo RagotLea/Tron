@@ -35,7 +35,7 @@ Observable observable;
         super();
         this.frame = new TronFrame("Tron", this.event, this.graphicBuilder, this.grid,
                 this.observable);
-        graphicBuilder = new TronGraphicsBuilder(grid, graphics);
+        graphicBuilder = new TronGraphicsBuilder(grid);
         event = new EventPerformer(order);
         this.drawAllLightCycles(graphics);
         }
@@ -55,18 +55,12 @@ Observable observable;
     }
 
     public final void drawAllLightCycles(final Graphics graphics) {
-    	graphicBuilder.applyModelToGraphic(graphics);
+    	graphicBuilder.applyModelToGraphic(graphics, frame);
     }
 
 	@Override
 	public void eventPerform(KeyEvent keyCode) {
 		event.eventPerform(keyCode);
-		
-	}
-
-	@Override
-	public void setOrderPerformer(IOrderPerformer orderPerformer) {
-		this.order = orderPerformer;
 		
 	}
 
