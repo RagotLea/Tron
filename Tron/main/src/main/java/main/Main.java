@@ -22,8 +22,8 @@ public abstract class Main {
      * @param args
      *            the arguments
      */
- 	private final static  int width = 400;
-	private final static int height = 600;
+ 	private final static  int width = 200;
+	private final static int height = 400;
     public static void main(final String[] args) throws SQLException {
    
            /* final ITronModel tronModel = new TronModel();

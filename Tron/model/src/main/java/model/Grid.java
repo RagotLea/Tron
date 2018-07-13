@@ -26,8 +26,11 @@ public void createGrid() {
 	 for (int x = 0; x < this.x; x++) {
          for (int y = 0; y < this.y; y++) {
              if ((x == 0) || (x == (this.x - 1)) || (y == 0) || (y == (this.y - 1))) {
+            	 
                  this.setBriksXY(WallEnum.WALL, x, y);
+                 
              } else {
+            	 
                  this.setBriksXY(WallEnum.GROUND, x, y);
              }
          }

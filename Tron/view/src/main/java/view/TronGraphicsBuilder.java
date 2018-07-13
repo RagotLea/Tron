@@ -21,7 +21,7 @@ public class TronGraphicsBuilder implements ITronGraphicsBuilder {
 
 	public void createWall(final Graphics graphics) {
 		 graphics.setColor(Color.WHITE);
-	     graphics.drawRect(0, 0, 399, 599);
+	     graphics.drawRect(0, 0,( this.grid.getX() - 1),(this.grid.getY()- 1));
 	}
 	
 	private void drawAllLightCycles(final Graphics graphics) {
@@ -39,7 +39,7 @@ public class TronGraphicsBuilder implements ITronGraphicsBuilder {
 	@Override
 	public void applyModelToGraphic(final Graphics graphics, final ImageObserver observer) {
 		this.drawAllLightCycles(graphics);
-		this.createWall(graphics);
+		//this.createWall(graphics);
 	}
 
 	

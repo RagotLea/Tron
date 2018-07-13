@@ -9,8 +9,10 @@ public enum WallEnum {
 	 public static WallEnum getWallByPlayer(final int player) {
 	        if (player == 0) {
 	            return WallEnum.BLUE_WALL;
+	            
 	        } else if (player == 1) {
 	            return WallEnum.RED_WALL;
+	            
 	        } else {
 	            return WallEnum.WALL;
 	        }
