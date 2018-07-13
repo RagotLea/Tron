@@ -12,19 +12,13 @@ import java.util.Observable;
  * @version 1.0
  */
 public final class ModelFacade extends Observable implements Imodel {
- TronModel model;
- Grid grid;
- LightCycles lightcycles;
- Color color;
- private final int x = 400;
- private final int y = 600;
+ //TronModel model;
+ 
     /**
      * Instantiates a new model facade.
      */
     public ModelFacade() {
-        super();
-        this.grid = new Grid(this.x, this.y);
-        grid.createGrid();
+      
        /*grid = new Grid();
        model = new TronModel();
        grid.createGrid();
@@ -64,8 +58,9 @@ public final class ModelFacade extends Observable implements Imodel {
 
 
 	public Grid getGrid() {
+		return null;
 		// TODO Auto-generated method stub
-		return model.getGrid();
+		
 	}
 
 

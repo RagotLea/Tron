@@ -28,8 +28,8 @@ public class ControllerFacade implements IController, Observer {
 	private IOrderPerformer order;
     public ControllerFacade(final IView view, final Imodel modelFacade) {
         super();
-        view.setGrid(modelFacade.getGrid());
-        view.setOrderPerformer(this.getOrderPerformer());
+     //  view.setGrid(modelFacade.getGrid());
+       // view.setOrderPerformer(this.getOrderPerformer());
         //model.addObserver(view);
     }
 
@@ -64,6 +64,36 @@ public class ControllerFacade implements IController, Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void orderPerform(IUserOrder userOrder) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void checkCollision() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void play() throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void gameLoop() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setView(IView view) {
 		// TODO Auto-generated method stub
 		
 	}
