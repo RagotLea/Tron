@@ -1,5 +1,7 @@
-package controller;
+package view;
 
+import controller.IUserOrder;
+import controller.Order;
 
 public class UserOrder implements IUserOrder {
 	private final int		player;

@@ -1,111 +1,103 @@
 package controller;
 
-import java.util.ArrayList;
+import java.sql.SQLException;
 
-import model.Direction;
+
+
 import model.IGrid;
 import model.ILightCycles;
-import model.ITronModel;
-import view.IViewSystem;
 
-public class TronController implements IOrderPerformer{
-	private static int						TIME_SLEEP	= 30;
-	private final ITronModel	tronModel;
-	private boolean								isGameOver	= false;
-	private IViewSystem	viewSystem;
+import view.IView;
+
+
+public class TronController implements IOrderPerformer, IController{
+	private static int	TIME_SLEEP	= 30;
+	private boolean	isGameOver	= false;
+	private IView	view;
 	private IGrid grid;
 
-	public TronController(final ITronModel tronModel) {
-		this.tronModel = tronModel;
+	public TronController(final IGrid grid) {
+		this.grid = grid;
 	}
 
 	@Override
 	public void orderPerform(final IUserOrder userOrder) {
-		if (userOrder != null) {
-			final ILightCycles lightCycles = this.grid.getMobileByPlayer(userOrder.getPlayer());
-			if (lightCycles != null) {
-				Direction direction;
-				switch (userOrder.getOrder()) {
-					/*case UP:
-						direction = Direction.UP;
-						break;*/
-					case RIGHT:
-						lightCycles.turnRight();
-						direction = lightCycles.getDirection();
-						break;
-					/*case DOWN:
-						direction = Direction.DOWN;
-						break;*/
-					case LEFT:
-						lightCycles.turnLeft();
-						direction = lightCycles.getDirection();
-						break;
-					default:
-						direction = this.grid.getMobileByPlayer(userOrder.getPlayer()).getDirection();
-						break;
-				}
-				lightCycles.setDirection(direction);
-			}
-		}
-	}
+		 if (userOrder != null) {
+	            final ILightCycles lightcycle = this.grid.getMobileByPlayer(userOrder.getPlayer());
+	            if (lightcycle != null) {
+	                int direction;
+	                switch (userOrder.getOrder()) {
+	                case RIGHT:
+	                    direction = (lightcycle.setDirection(
+	                            ((this.grid.getMobileByPlayer(userOrder.getPlayer()).getDirection() + 1) + 4) % 4));
+	                    break;
+	                case LEFT:
+	                    direction = (lightcycle.setDirection(
+	                            ((this.grid.getMobileByPlayer(userOrder.getPlayer()).getDirection() - 1) + 4) % 4));
+	                    break;
+	                case NOP:
+	                default:
+	                    direction = lightcycle
+	                            .setDirection(this.grid.getMobileByPlayer(userOrder.getPlayer()).getDirection());
+	                    break;
 
-	private boolean isWeaponOnMobile(final ILightCycles lightCycles1, final ILightCycles lightCycles2) {
-		if (((lightCycles2.getPosition().getX() / lightCycles2.getWidth()) >= (lightCycles1.getPosition().getX() / lightCycles2.getWidth()))
-				&& ((lightCycles2.getPosition().getX() / lightCycles2.getWidth()) <= ((lightCycles1.getPosition().getX() + lightCycles1.getWidth()) / lightCycles1.getWidth()))) {
-			if (((lightCycles2.getPosition().getY() / lightCycles2.getHeight()) >= (lightCycles1.getPosition().getY() / lightCycles2.getHeight()))
-					&& ((lightCycles2.getPosition().getY() / lightCycles2.getHeight()) <= ((lightCycles1.getPosition().getY() + lightCycles1.getHeight()) / lightCycles1.getHeight()))) {
-				return true;
-			}
-		}
-		return false;
-	}
+	                }
 
-	private void manageCollision(final ILightCycles weapon) {
-		final ArrayList<ILightCycles> target = new ArrayList<ILightCycles>();
-		boolean isTargetHit = false;
+	                lightcycle.setDirection(direction);
+	            }
+	        }
+	    }
+	
+	@Override
+	public void checkCollision() {
+		 for (int player = 0; player < 2; player++) {
+	            if (this.grid.getBriksXY(this.grid.getMobileByPlayer(player).getPosition().getX(),
+	                    this.grid.getMobileByPlayer(player).getPosition().getY()).isWall()) {
+	                this.grid.getMobileByPlayer(player).die();
+	                this.isGameOver = true;
+	            }
+	        }
+	    }
 
-		for (final ILightCycles mobile : this.grid.getLightCycles()) {
-			if (this.isWeaponOnMobile(mobile, weapon)) {
-				target.add(mobile);
-			}
-		}
-	/*for (final ILightCycles mobile : target) {
-			isTargetHit = isTargetHit || mobile.hit();
-		}
-		if (isTargetHit) {
-			this.isGameOver = true;
-		}*/
-	}
+	@Override
+	public void play() throws SQLException {
+		  final long begin = System.currentTimeMillis();
+	        this.gameLoop();
+	        if (!this.grid.getMobileByPlayer(0).isAlive() && !this.grid.getMobileByPlayer(1).isAlive()) {
+	            this.view.displayMessage("Tie !!! Replay");
+	            this.grid.setResult(0, (System.currentTimeMillis() - begin) / 1000);
+	        } else if (!this.grid.getMobileByPlayer(0).isAlive()) {
+	            this.view.displayMessage("Player 2 wins");
+	            this.grid.setResult(2, (System.currentTimeMillis() - begin) / 1000);
+	        } else if (!this.grid.getMobileByPlayer(1).isAlive()) {
+	            this.view.displayMessage("Player 1 wins");
+	            this.grid.setResult(1, (System.currentTimeMillis() - begin) / 1000);
+	        }
+	        this.view.closeAll();
+	    }
 
-	public void play() {
-		this.gameLoop();
-		this.viewSystem.displayMessage("Game Over !");
-		this.viewSystem.closeAll();
-	}
+	@Override
+	public void gameLoop() {
+		        while (!this.isGameOver) {
+		            try {
+		                Thread.sleep(TronController.TIME_SLEEP);
+		            } catch (final InterruptedException ex) {
+		                Thread.currentThread().interrupt();
+		            }
+		            this.checkCollision();
+		            this.grid.addWall(0);
+		            this.grid.addWall(1);
+		            for (final ILightCycles lightCycle : this.grid.getLightCycles()) {
+		                lightCycle.move();
+		            }
+		            this.grid.setLightCyclesHavesMoved();
+		        }
+		    }
 
-	private void gameLoop() {
-		while (!this.isGameOver) {
-			try {
-				Thread.sleep(TIME_SLEEP);
-			} catch (final InterruptedException ex) {
-				Thread.currentThread().interrupt();
-			}
-
-			final ArrayList<ILightCycles> initialMobiles = new ArrayList<ILightCycles>();
-			for (final ILightCycles mobile : this.grid.getLightCycles()) {
-				initialMobiles.add(mobile);
-			}
-			for (final ILightCycles mobile : initialMobiles) {
-				mobile.move();
-				if (mobile.isWeapon()) {
-					this.manageCollision(mobile);
-				}
-			}
-			this.grid.setMobilesHavesMoved();
-		}
-	}
-
-	public void setViewSystem(final IViewSystem viewSystem) {
-		this.viewSystem = viewSystem;
+	
+		
+	@Override
+	public void setView(final IView view) {
+		this.view = view;
 	}
 }

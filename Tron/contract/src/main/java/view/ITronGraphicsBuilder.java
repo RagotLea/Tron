@@ -1,14 +1,11 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.ImageObserver;
 
 public interface ITronGraphicsBuilder {
 
-	void createWall(int x, int y, Color color);
+	void applyModelToGraphic(Graphics graphics, ImageObserver observer);
 
-	void createBlueWall(int x, int y, Color color);
-
-	void createRedWall(int x, int y, Color color);
-
-	void createGround(int x, int y, Color color);
 }

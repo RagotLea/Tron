@@ -1,109 +1,67 @@
 package model;
-import java.awt.Color;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Observable;
 import model.IGrid;
 import model.WallEnum;
-import view.ITronGraphicsBuilder;
+import model.dao.TronDAO;
 
 public class Grid extends Observable implements IGrid {
 private int x ;
 private int y ;
-private WallEnum wall;
-Wall wallee ;
-private IDimension dimension;
 ArrayList<ILightCycles> lightCycles;
-LightCycles lightcycles1;
-LightCycles lightcycles2;
-Color color;
-ITronModel tron;
-ITronGraphicsBuilder builder;
-Ground ground;
+WallEnum[][] briks;
 
-public Grid () {
-	this.setX(600);
-	this.setY(400);
-	this.lightcycles1 = new LightCycles(10, 100, color.blue );
-	this.lightcycles2 = new LightCycles(100, 10, color.red );
+
+public Grid (final int x, final int y) {
+	this.x = x;
+	this.y = y;
+	this.lightCycles = new ArrayList<ILightCycles>();
+	this.briks = new WallEnum[x][y];
+	this.createGrid();
 }
 
+@Override
+public void createGrid() {
+	 for (int x = 0; x < this.x; x++) {
+         for (int y = 0; y < this.y; y++) {
+             if ((x == 0) || (x == (this.x - 1)) || (y == 0) || (y == (this.y - 1))) {
+                 this.setBriksXY(WallEnum.WALL, x, y);
+             } else {
+                 this.setBriksXY(WallEnum.GROUND, x, y);
+             }
+         }
+     }
+}
+
+@Override
+public int getX() {
+	return this.x;
+}
+
+@Override
 public void setX(int x) {
 	this.x = x;
 }
-@Override
-public int getX() {
-	// TODO Auto-generated method stub
-	return this.x;
-}
-public void setY(int y) {
-	this.y = y;
-}
+
 @Override
 public int getY() {
-	// TODO Auto-generated method stub
 	return this.y;
 }
 
-public WallEnum getWall() {
-	return this.wall;
-}
-
-public void setWall(WallEnum wall) {
-	this.wall = wall;
+@Override
+public void setY(int y) {
+	this.y = y;
 }
 
 @Override
-public WallEnum createGrid() {
-	for (int i= 0; i<= 600; i++) {
-		for (int j = 2; j <= 400; j++) {
-			  if ((i== 0) || (i == 600 - 1)) {
-				  System.out.println("ook1");
-				  this.setWall(wall.WALL);
-				  wallee = new Wall(color.white, i, j);
-				  System.out.println("ook2");
-			  }
-			  if ((j == 0)||(j == 400 - 1)) {
-				  this.setWall(wall.WALL);
-				  wallee = new Wall(color.white, i, j); 
-				  System.out.println("ook3");
-			  }
-			
-			
-			  if ((lightcycles1.getWidth() == i) && (lightcycles1.getHeight() == j)) {
-				  this.setWall(wall.BLUE_WALL);
-				  wallee = new Wall(color.blue,i,j);
-				  System.out.println("ook4");
-			  }
-			  
-			  if ((lightcycles2.getWidth() == i) && lightcycles2.getHeight() == j) {
-				  this.setWall(wall.RED_WALL);
-				  wallee = new Wall(color.red,i,j);
-				  System.out.println("ook5");
-			  }
-			  this.setWall(wall.GROUND);
-			  ground = new Ground();
-			  System.out.println("ook6");
-			  
-		}
-		
-	}
-	System.out.println(wall);
-	return this.getWall();
-	
-}
-
-
-
-@Override
-public void update(Observable arg0, Object arg1) {
-	// TODO Auto-generated method stub
-	
+public WallEnum getBriksXY(final int x, final int y) {
+    return this.briks[x][y];
 }
 
 @Override
-public IDimension getDimension() {
-	// TODO Auto-generated method stub
-	return this.dimension;
+public void setBriksXY(WallEnum briks, int x, int y) {
+	this.briks[x][y] = briks;
 }
 
 @Override
@@ -112,17 +70,17 @@ public ArrayList<ILightCycles> getLightCycles() {
 }
 
 @Override
-public ILightCycles getMobileByPlayer(int player) {
-	for (final ILightCycles lightCycles : this.lightCycles) {
-		if (lightCycles.isPlayer(player)) {
-			return lightCycles;
-		}
-	}
-	return null;
+public ILightCycles getMobileByPlayer(final int player) {
+    for (final ILightCycles lightCycle : this.lightCycles) {
+        if (lightCycle.isPlayer(player)) {
+            return lightCycle;
+        }
+    }
+    return null;
 }
 
 @Override
-public void setMobilesHavesMoved() {
+public void setLightCyclesHavesMoved() {
 	this.setChanged();
 	this.notifyObservers();
 	
@@ -131,18 +89,29 @@ public void setMobilesHavesMoved() {
 @Override
 public void addLightCycles(ILightCycles lightCycles) {
 	this.lightCycles.add(lightCycles);
-	//lightCycles.setTronModel(lightCycles);
+	lightCycles.setGrid(this);
 	
 }
 
 @Override
-public ArrayList<ILightCycles> getCopyOfLightCycles() {
-	final ArrayList<ILightCycles> copyOflightcycles = new ArrayList<ILightCycles>();
+public void addWall(int player) {
+	 this.setBriksXY(WallEnum.getWallByPlayer(player),
+             this.getMobileByPlayer(player).getPosition().getX(),
+             this.getMobileByPlayer(player).getPosition().getY());
 
-	for (final ILightCycles lightcycles : this.getLightCycles()) {
-		copyOflightcycles.add(lightcycles);
-	}
-	return copyOflightcycles;
+ }
+
+@Override
+public void setResult(int player, long time) throws SQLException {
+	 TronDAO.setResult(player, time);
+	
 }
+
+@Override
+public void update(Observable o, Object arg) {
+	// TODO Auto-generated method stub
+	
+}
+
 
 }

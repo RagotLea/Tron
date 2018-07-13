@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.util.Observable;
 
 import javax.swing.JOptionPane;
 
@@ -26,12 +27,14 @@ TronFrame frame;
 EventPerformer event;
 Graphics graphics;
 IController controller;
+Observable observable;
     /**
      * Instantiates a new view facade.
      */
     public ViewFacade() {
         super();
-        this.frame = new TronFrame("test", tron);
+        this.frame = new TronFrame("Tron", this.event, this.graphicBuilder, this.grid,
+                this.observable);
         graphicBuilder = new TronGraphicsBuilder(grid, graphics);
         event = new EventPerformer(order);
         this.drawAllLightCycles(graphics);
@@ -64,6 +67,12 @@ IController controller;
 	@Override
 	public void setOrderPerformer(IOrderPerformer orderPerformer) {
 		this.order = orderPerformer;
+		
+	}
+
+	@Override
+	public void closeAll() {
+		
 		
 	}
 }

@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Graphics;
+import java.io.IOException;
 
 import controller.IOrderPerformer;
 import model.IGrid;
@@ -20,7 +21,6 @@ public interface IView {
      *            the message
      */
     void displayMessage(String message);
-    public void drawAllLightCycles(final Graphics graphics);
-    public void setGrid(IGrid iGrid);
-	void setOrderPerformer(IOrderPerformer orderPerformer);
+    public void setGrid(IGrid iGrid) throws IOException;
+	void closeAll();
 }

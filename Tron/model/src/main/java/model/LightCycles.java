@@ -3,94 +3,69 @@ package model;
 import java.awt.Color;
 
 public class LightCycles implements ILightCycles {
-private int width;
-private int height;
-private Direction direction;
+private int direction;
 private Color color;
-private ITronModel tronModel;
 private IPosition position;
+private int player;
+private IGrid grid;
+private boolean alive;
 
-public LightCycles(int width, int height, Color color) {
-	this.setWidth(width);
-	this.setHeight(height);
-	this.setColor(color);
+public LightCycles(final int direction,final IPosition position, final Color color,final int player) {
+this.position = position;
+this.color = color;
+this.player = player;
+this.alive = true;
+this.direction = direction;
 
 }
 
 
 @Override
 public void move() {
-	switch (direction) {
-	case UP:
+	switch (this.direction) {
+	
+	case 0:
 		this.moveUp();
-	case DOWN:
-		this.moveDown();
-	case RIGHT:
+		break;
+	case 1:
 		this.moveRight();
-	case LEFT: 
+		break;
+	case 2:
+		this.moveDown();
+		break;
+	case 3: 
 		this.moveLeft();
+		break;
 	}
 }
 
 
 public void moveUp() {
-	this.setHeight(getHeight()+1);
+	this.position.setY(this.position.getY() + 1);
 }
 
 public void moveDown() {
-	this.setHeight(getHeight()-1);
+	this.position.setY(this.position.getY() - 1);
 }
 
 public void moveRight() {
-	this.setWidth(getWidth()+1);
+	this.position.setX(this.position.getX()+1);
 }
 
 public void moveLeft() {
-	this.setWidth(getWidth()-1);
+	this.position.setX(this.position.getX()-1);
 }
 
 @Override
-public void turnRight() {
-	this.setDirection(Direction.values()[(getDirection().ordinal() + 1) %4]);
+public int getDirection() {
+    return this.direction;
 }
 
 @Override
-public void turnLeft() {
-	this.setDirection(Direction.values()[(getDirection().ordinal() + 3) %4]);
-}
+public int setDirection(final int direction) {
+    return this.direction = direction;
 
-@Override
-public int getWidth() {
-	return this.width;
-	// TODO Auto-generated method stub
-	
 }
-
-@Override
-public int getHeight() {
-	return this.height;
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void setWidth(int width) {
-	this.width = width;
-	
-}
-
-@Override
-public void setHeight(int height) {
-	this.height = height;
-	
-}
-
-@Override
-public Direction getDirection() {
-	// TODO Auto-generated method stub
-	return this.direction;
-}
-
 
 @Override
 public Color getColor() {
@@ -105,29 +80,10 @@ public void setColor(Color color) {
 	
 }
 
-public ITronModel getTronModel() {
-	return this.tronModel;
-}
 
 @Override
-public void setTronModel(ITronModel tronModel) {
-	this.tronModel = tronModel;
-	this.getPosition().setMaxX(this.getTronModel().getGrid().getDimension().getWidth());
-	this.getPosition().setMaxY(this.getTronModel().getGrid().getDimension().getHeight());
-	
-}
-
-
-@Override
-public boolean isPlayer(int player) {
-	return false;
-}
-
-
-@Override
-public void setDirection(Direction direction) {
-	this.direction = direction;
-	
+public boolean isPlayer(final int player) {
+	 return this.player == player;
 }
 
 
@@ -141,5 +97,34 @@ public boolean isWeapon() {
 public IPosition getPosition() {
 	return this.position;
 }
+
+@Override
+public void setPosition(final IPosition position) {
+    this.position = position;
+
+}
+
+public IGrid getGrid() {
+    return this.grid;
+}
+
+@Override
+public void setGrid(final IGrid grid) {
+    this.grid = grid;
+}
+
+
+@Override
+public void die() {
+	this.alive = false;
+	
+}
+
+
+@Override
+public boolean isAlive() {
+	 return this.alive;
+}
+
 
 }

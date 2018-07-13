@@ -2,12 +2,8 @@ package model;
 
 import java.awt.Color;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
-
-import model.dao.ExampleDAO;
-import view.IView;
 
 /**
  * <h1>The Class ModelFacade provides a facade of the Model component.</h1>
@@ -20,12 +16,14 @@ public final class ModelFacade extends Observable implements Imodel {
  Grid grid;
  LightCycles lightcycles;
  Color color;
+ private final int x = 400;
+ private final int y = 600;
     /**
      * Instantiates a new model facade.
      */
     public ModelFacade() {
         super();
-        this.grid = new Grid();
+        this.grid = new Grid(this.x, this.y);
         grid.createGrid();
        /*grid = new Grid();
        model = new TronModel();
